@@ -1,1 +1,3 @@
-APPVentas
+git add .
+git commit -m "Añadir carpetas y archivos"
+git push origin main
