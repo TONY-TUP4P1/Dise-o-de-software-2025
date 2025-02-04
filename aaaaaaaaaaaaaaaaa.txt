@@ -1,0 +1,427 @@
+-- Crear la base de datos AppVentas
+CREATE DATABASE AppVentas;
+GO
+
+-- Seleccionar la base de datos
+USE AppVentas;
+GO
+
+-- Crear tabla CategoriaProducto
+CREATE TABLE CategoriaProducto (
+    IDCategoriaProducto INT PRIMARY KEY IDENTITY(1,1),
+    Nombre NVARCHAR(100) NOT NULL
+);
+
+-- Crear tabla Producto
+CREATE TABLE Producto (
+    IDProducto INT PRIMARY KEY IDENTITY(1,1),
+    Stock INT NOT NULL,
+    Nombre NVARCHAR(100) NOT NULL,
+    LugarProcedencia NVARCHAR(100) NOT NULL,
+    UnidadMedida NVARCHAR(20) NOT NULL,  -- Kilos o sacos
+    Precio DECIMAL(10, 2) NOT NULL,
+    IDCategoriaProducto INT,
+    FOREIGN KEY (IDCategoriaProducto) REFERENCES CategoriaProducto(IDCategoriaProducto)
+);
+
+-- Crear tabla Cliente
+CREATE TABLE Clientes (
+    IDCliente INT PRIMARY KEY IDENTITY(1,1),
+    Direccion NVARCHAR(200),
+    Telefono NVARCHAR(20),
+    Nombres NVARCHAR(100),
+    CorreoElectronico NVARCHAR(100),
+    Apellido NVARCHAR(100),
+    DNI NVARCHAR(20)
+);
+
+-- Crear tabla Productor
+CREATE TABLE Productor (
+    IDProductor INT PRIMARY KEY IDENTITY(1,1),
+    TipoProducto NVARCHAR(100),  -- Tuberculos, Verduras, Frutas, etc.
+    Certificacion NVARCHAR(50),  -- Puede ser "Activa" o "No activa"
+    Telefono NVARCHAR(20),
+    CorreoElectronico NVARCHAR(100),
+    NombresApellidos NVARCHAR(200),
+    IDProducto INT,  -- Relacionado con el producto que ofrece
+    FOREIGN KEY (IDProducto) REFERENCES Producto(IDProducto)
+);
+
+-- Crear tabla Venta
+CREATE TABLE Venta (
+    IDVenta INT PRIMARY KEY IDENTITY(1,1),
+    FechaVenta DATETIME NOT NULL,
+    MontoTotal DECIMAL(10, 2) NOT NULL,
+    IDCliente INT,  -- Relacionado con el cliente
+    FOREIGN KEY (IDCliente) REFERENCES Clientes(IDCliente)
+);
+
+-- Crear tabla DetalleVenta
+CREATE TABLE DetalleVenta (
+    IDDetalleVenta INT PRIMARY KEY IDENTITY(1,1),
+    Cantidad INT NOT NULL,
+    PrecioVenta DECIMAL(10, 2) NOT NULL,
+    ProductoID INT,  -- Relacionado con Producto
+    VentaID INT,  -- Relacionado con Venta
+    FOREIGN KEY (ProductoID) REFERENCES Producto(IDProducto),
+    FOREIGN KEY (VentaID) REFERENCES Venta(IDVenta)
+);
+
+-- Crear tabla Reseña
+CREATE TABLE Reseña (
+    IDReseña INT PRIMARY KEY IDENTITY(1,1),
+    IDCliente INT,  -- Relacionado con el cliente que hace la reseña
+    Fecha DATETIME NOT NULL,
+    Idioma NVARCHAR(20),  -- Español o Quechua
+    Comentario NVARCHAR(500),
+    Calificacion INT CHECK (Calificacion BETWEEN 1 AND 10),
+    EstadoProducto NVARCHAR(50),  -- Ej. "Bueno", "Regular", "Malo"
+    FOREIGN KEY (IDCliente) REFERENCES Clientes(IDCliente)
+);
+
+
+INSERT INTO CategoriaProducto (Nombre) VALUES
+('Tuberculos'),
+('Verduras'),
+('Frutas'),
+('Granos'),
+('Lácteos');
+
+INSERT INTO Producto (Stock, Nombre, LugarProcedencia, UnidadMedida, Precio, IDCategoriaProducto) VALUES
+(100, 'Papa Amarilla', 'Junín', 'kilos', 3.50, 1),
+(150, 'Yuca', 'San Martín', 'kilos', 2.80, 1),
+(200, 'Camote', 'Cajamarca', 'kilos', 4.00, 1),
+(120, 'Oca', 'Arequipa', 'kilos', 3.10, 1),
+(100, 'Mashua', 'Puno', 'kilos', 3.30, 1),
+(300, 'Zanahoria', 'Ica', 'kilos', 2.20, 2),
+(250, 'Lechuga', 'Lima', 'kilos', 1.50, 2),
+(180, 'Pepino', 'La Libertad', 'kilos', 1.80, 2),
+(220, 'Pimiento', 'Piura', 'kilos', 2.50, 2),
+(210, 'Tomate', 'Cuzco', 'kilos', 2.60, 2);
+
+INSERT INTO Producto (Stock, Nombre, LugarProcedencia, UnidadMedida, Precio, IDCategoriaProducto) VALUES
+(100, 'Papa Amarilla', 'Junín', 'sacos', 3.50, 1),
+(150, 'Yuca', 'San Martín', 'sacos', 2.80, 1),
+(200, 'Camote', 'Cajamarca', 'sacos', 4.00, 1),
+(120, 'Oca', 'Arequipa', 'sacos', 3.10, 1),
+(100, 'Mashua', 'Puno', 'sacos', 3.30, 1),
+(300, 'Zanahoria', 'Ica', 'kilos', 2.20, 2),
+(250, 'Lechuga', 'Lima', 'kilos', 1.50, 2),
+(180, 'Pepino', 'La Libertad', 'kilos', 1.80, 2),
+(220, 'Pimiento', 'Piura', 'kilos', 2.50, 2),
+(210, 'Tomate', 'Cuzco', 'kilos', 2.60, 2),
+(300, 'Manzana', 'Áncash', 'kilos', 4.50, 3),
+(200, 'Pera', 'Junín', 'kilos', 3.90, 3),
+(250, 'Plátano', 'San Martín', 'kilos', 2.60, 3),
+(180, 'Naranja', 'Piura', 'kilos', 2.80, 3),
+(150, 'Mandarina', 'Arequipa', 'kilos', 3.10, 3),
+(200, 'Limón', 'Cuzco', 'kilos', 2.20, 3),
+(500, 'Arroz', 'Loreto', 'kilos', 1.00, 4),
+(600, 'Maíz', 'Ucayali', 'kilos', 1.30, 4),
+(400, 'Frijoles', 'Junín', 'kilos', 2.10, 4),
+(350, 'Lenteja', 'Puno', 'kilos', 2.50, 4),
+(300, 'Soya', 'Ica', 'kilos', 3.00, 4),
+(100, 'Acelga', 'La Libertad', 'kilos', 2.00, 2),
+(150, 'Espinaca', 'Lima', 'kilos', 1.70, 2),
+(200, 'Cebollas', 'Cajamarca', 'kilos', 1.90, 2),
+(180, 'Papas Chicas', 'San Martín', 'sacos', 2.30, 1),
+(120, 'Betabel', 'Arequipa', 'kilos', 2.60, 2),
+(150, 'Apio', 'Junín', 'kilos', 1.80, 2),
+(170, 'Brócoli', 'Cuzco', 'kilos', 2.40, 2),
+(250, 'Repollo', 'Piura', 'kilos', 1.60, 2),
+(200, 'Coliflor', 'Ica', 'kilos', 2.20, 2),
+(300, 'Frambuesa', 'Lima', 'kilos', 5.50, 3),
+(400, 'Fresas', 'La Libertad', 'kilos', 4.80, 3),
+(350, 'Moras', 'Junín', 'kilos', 6.00, 3),
+(300, 'Ciruelas', 'Cuzco', 'kilos', 3.90, 3),
+(450, 'Kiwi', 'Áncash', 'kilos', 7.00, 3),
+(100, 'Alfalfa', 'Arequipa', 'kilos', 1.20, 2),
+(200, 'Acelga Blanca', 'San Martín', 'kilos', 2.10, 2),
+(180, 'Cilantro', 'La Libertad', 'kilos', 2.40, 2),
+(250, 'Perejil', 'Puno', 'kilos', 1.90, 2),
+(150, 'Albahaca', 'Ica', 'kilos', 2.50, 2),
+(130, 'Tomillo', 'Lima', 'kilos', 3.00, 2),
+(400, 'Frijoles Negros', 'Loreto', 'kilos', 2.40, 4),
+(500, 'Alubias', 'Puno', 'kilos', 2.00, 4),
+(350, 'Garbanzos', 'Cajamarca', 'kilos', 3.20, 4),
+(150, 'Cañihua', 'Arequipa', 'kilos', 3.80, 4),
+(200, 'Quinoa', 'San Martín', 'kilos', 4.30, 4),
+(300, 'Cacao', 'La Libertad', 'kilos', 5.00, 4),
+(250, 'Mango', 'Piura', 'kilos', 3.20, 3),
+(220, 'Papaya', 'Lima', 'kilos', 2.70, 3),
+(300, 'Aguaymanto', 'Cuzco', 'kilos', 4.50, 3),
+(180, 'Granada', 'Áncash', 'kilos', 5.20, 3),
+(150, 'Maracuyá', 'Junín', 'kilos', 4.90, 3);
+
+
+-- Lácteos
+INSERT INTO Producto (Stock, Nombre, LugarProcedencia, UnidadMedida, Precio, IDCategoriaProducto) VALUES
+(300, 'Leche', 'Junín', 'litros', 1.50, 5), -- Producto de categoría Lácteos
+(250, 'Yogur', 'Lima', 'litros', 2.00, 5),
+(200, 'Queso Fresco', 'Puno', 'kilos', 4.50, 5),
+(180, 'Mantequilla', 'Arequipa', 'kilos', 5.00, 5),
+(150, 'Crema de Leche', 'Ica', 'litros', 3.50, 5),
+(100, 'Leche en Polvo', 'La Libertad', 'kilos', 6.00, 5),
+(220, 'Queso Parmesano', 'Lima', 'kilos', 8.00, 5),
+(300, 'Leche Evaporada', 'Cajamarca', 'litros', 2.20, 5),
+(150, 'Yogur Griego', 'Piura', 'litros', 3.80, 5),
+(180, 'Leche Condensada', 'Cusco', 'litros', 2.50, 5);
+
+
+INSERT INTO Clientes (Direccion, Telefono, Nombres, CorreoElectronico, Apellido, DNI) VALUES
+('Av. Puno 123', '987654321', 'Juan Perez', 'juan@correo.com', 'Perez', '12345678'),
+('Av. Lima 456', '912345678', 'Maria Lopez', 'maria@correo.com', 'Lopez', '87654321');
+
+INSERT INTO Productor (TipoProducto, Certificacion, Telefono, CorreoElectronico, NombresApellidos, IDProducto) VALUES
+('Tuberculos', 'Activa', '987654321', 'juan@productor.com', 'Juan Perez', 1),
+('Verduras', 'Activa', '912345678', 'maria@productor.com', 'Maria Lopez', 2);
+
+INSERT INTO Venta (FechaVenta, MontoTotal, IDCliente) VALUES
+('2025-02-01', 150.00, 1),
+('2025-02-02', 200.00, 2);
+
+INSERT INTO DetalleVenta (Cantidad, PrecioVenta, ProductoID, VentaID) VALUES
+(10, 3.50, 1, 1),
+(20, 2.80, 2, 1),
+(15, 4.00, 3, 2),
+(25, 1.50, 6, 2);
+
+INSERT INTO Reseña (IDCliente, Fecha, Idioma, Comentario, Calificacion, EstadoProducto) VALUES
+(1, '2025-02-01', 'Español', 'Producto excelente', 10, 'Bueno'),
+(2, '2025-02-02', 'Quechua', 'Producto regular', 6, 'Regular');
+
+-- Ver los datos de Producto
+SELECT * FROM Producto;
+
+-- Ver los datos de CategoriaProducto
+SELECT * FROM CategoriaProducto;
+
+-- Ver los datos de Clientes
+SELECT * FROM Clientes;
+
+-- Ver los datos de Productor
+SELECT * FROM Productor;
+
+-- Ver los datos de Venta
+SELECT * FROM Venta;
+
+-- Ver los datos de DetalleVenta
+SELECT * FROM DetalleVenta;
+
+-- Ver los datos de Reseña
+SELECT * FROM Reseña;
+
+
+--PROCEDIMIENTOS ALMACENADOS
+
+CREATE PROCEDURE sp_InsertarProducto
+    @Stock INT,
+    @Nombre NVARCHAR(100),
+    @LugarProcedencia NVARCHAR(100),
+    @UnidadMedida NVARCHAR(10),
+    @Precio DECIMAL(10, 2),
+    @IDCategoriaProducto INT
+AS
+BEGIN
+    INSERT INTO Producto (Stock, Nombre, LugarProcedencia, UnidadMedida, Precio, IDCategoriaProducto)
+    VALUES (@Stock, @Nombre, @LugarProcedencia, @UnidadMedida, @Precio, @IDCategoriaProducto);
+END;
+
+--Store Procedure para Ver Todos los Productos
+--Este procedimiento selecciona todos los productos de la tabla Producto.
+
+
+CREATE PROCEDURE sp_VerTodosLosProductos
+AS
+BEGIN
+    SELECT * FROM Producto;
+END;
+--Store Procedure para Actualizar un Producto
+--Este procedimiento actualiza un producto específico según su IDProducto.
+
+
+CREATE PROCEDURE sp_ActualizarProducto
+    @IDProducto INT,
+    @Stock INT,
+    @Nombre NVARCHAR(100),
+    @LugarProcedencia NVARCHAR(100),
+    @UnidadMedida NVARCHAR(10),
+    @Precio DECIMAL(10, 2),
+    @IDCategoriaProducto INT
+AS
+BEGIN
+    UPDATE Producto
+    SET Stock = @Stock,
+        Nombre = @Nombre,
+        LugarProcedencia = @LugarProcedencia,
+        UnidadMedida = @UnidadMedida,
+        Precio = @Precio,
+        IDCategoriaProducto = @IDCategoriaProducto
+    WHERE IDProducto = @IDProducto;
+END;
+--Store Procedure para Eliminar un Producto
+--Este procedimiento elimina un producto según su IDProducto.
+
+CREATE PROCEDURE sp_EliminarProducto
+    @IDProducto INT
+AS
+BEGIN
+    DELETE FROM Producto WHERE IDProducto = @IDProducto;
+END;
+--Store Procedure para Insertar una Venta
+--Este procedimiento agrega una nueva venta a la tabla Venta.
+
+CREATE PROCEDURE sp_InsertarVenta
+    @FechaVenta DATETIME,
+    @MontoTotal DECIMAL(10, 2)
+AS
+BEGIN
+    INSERT INTO Venta (FechaVenta, MontoTotal)
+    VALUES (@FechaVenta, @MontoTotal);
+END;
+--Store Procedure para Insertar Detalle de Venta
+--Este procedimiento agrega un detalle de venta a la tabla DetalleVenta.
+
+
+CREATE PROCEDURE sp_InsertarDetalleVenta
+    @Cantidad INT,
+    @PrecioVenta DECIMAL(10, 2),
+    @ProductoID INT,
+    @VentaID INT
+AS
+BEGIN
+    INSERT INTO DetalleVenta (Cantidad, PrecioVenta, ProductoID, VentaID)
+    VALUES (@Cantidad, @PrecioVenta, @ProductoID, @VentaID);
+END;
+--Store Procedure para Ver las Ventas
+--Este procedimiento selecciona todas las ventas registradas en la tabla Venta.
+
+
+CREATE PROCEDURE sp_VerTodasLasVentas
+AS
+BEGIN
+    SELECT * FROM Venta;
+END;
+--Store Procedure para Insertar un Cliente
+--Este procedimiento agrega un nuevo cliente a la tabla Clientes.
+
+CREATE PROCEDURE sp_InsertarCliente
+    @Direccion NVARCHAR(200),
+    @Telefono NVARCHAR(20),
+    @Nombres NVARCHAR(100),
+    @CorreoElectronico NVARCHAR(100),
+    @Apellido NVARCHAR(100),
+    @DNI NVARCHAR(20)
+AS
+BEGIN
+    INSERT INTO Clientes (Direccion, Telefono, Nombres, CorreoElectronico, Apellido, DNI)
+    VALUES (@Direccion, @Telefono, @Nombres, @CorreoElectronico, @Apellido, @DNI);
+END;
+--Store Procedure para Insertar una Reseña
+--Este procedimiento agrega una reseña de un cliente sobre un producto.
+
+
+CREATE PROCEDURE sp_InsertarReseña
+    @IDCliente INT,
+    @Fecha DATETIME,
+    @Idioma NVARCHAR(20),
+    @Comentario NVARCHAR(500),
+    @Calificacion INT,
+    @EstadoProductoEntregado NVARCHAR(20)
+AS
+BEGIN
+    INSERT INTO Reseña (IDCliente, Fecha, Idioma, Comentario, Calificacion, EstadoProducto)
+    VALUES (@IDCliente, @Fecha, @Idioma, @Comentario, @Calificacion, @EstadoProductoEntregado);
+END;
+-- Store Procedure para Ver las Reseñas
+--Este procedimiento selecciona todas las reseñas registradas.
+
+CREATE PROCEDURE sp_VerReseñas
+AS
+BEGIN
+    SELECT * FROM Reseña;
+END;
+
+
+
+EXEC sp_EliminarProducto @IDProducto = 1;
+
+
+ALTER TABLE Producto
+ADD Activo BIT DEFAULT 1; -- 1 significa activo, 0 significa deshabilitado
+
+
+CREATE PROCEDURE sp_DeshabilitarProducto
+    @IDProducto INT
+AS
+BEGIN
+    -- Cambiar a 0 la columna 'Activo' para marcar el producto como deshabilitado
+    UPDATE Producto
+    SET Activo = 0
+    WHERE IDProducto = @IDProducto;
+END;
+
+
+ALTER TABLE Producto
+ADD Activo BIT DEFAULT 1; -- 1 significa activo, 0 significa deshabilitado
+
+
+CREATE PROCEDURE sp_DeshabilitarProducto
+    @IDProducto INT
+AS
+BEGIN
+-- Deshabilitar el producto cambiando el valor de 'Activo' a 0
+    UPDATE Producto
+    SET Activo = 0
+    WHERE IDProducto = @IDProducto;
+END;
+
+ALTER TABLE Producto
+ADD Activo BIT DEFAULT 1; -- 1 significa activo, 0 significa deshabilitado
+
+
+
+
+UPDATE Producto
+SET Activo = 0
+WHERE IDProducto = 5; -- Aquí reemplaza 5 con el ID del producto que deseas deshabilitar
+
+
+SELECT * FROM Producto
+WHERE Activo = 1;
+
+
+UPDATE Producto
+SET Activo = 1
+WHERE IDProducto = 6;
+UPDATE Producto
+SET Activo = 1
+WHERE IDProducto = 7 ;
+
+UPDATE Producto
+SET Activo = 1
+WHERE IDProducto BETWEEN 1 AND 177;
+
+
+
+EXEC sp_InsertarProducto 
+    @Stock = 100, 
+    @Nombre = 'Yuca', 
+    @LugarProcedencia = 'San Martín', 
+    @UnidadMedida = 'sacos', 
+    @Precio = 2.80, 
+    @IDCategoriaProducto = 1;
+
+
+
+EXEC sp_VerTodosLosProductos;
+
+
+EXEC sp_ActualizarProducto
+    @IDProducto = 1, 
+    @Stock = 150, 
+    @Nombre = 'Yuca', 
+    @LugarProcedencia = 'San Martín', 
+    @UnidadMedida = 'sacos', 
+    @Precio = 3.00, 
+    @IDCategoriaProducto = 1;
