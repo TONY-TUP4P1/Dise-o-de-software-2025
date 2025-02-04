@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma de Comercio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Barra de Navegación -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="#">Registrarse</a></li>
+            <li><a href="#" id="productosBtn">Productos</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Carrito</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Menú lateral (oculto por defecto) -->
+        <aside id="menuLateral" class="hidden">
+            <h3>Categorías</h3>
+            <ul>
+                <li><a href="#">Tubérculos</a></li>
+                <li><a href="#">Granos</a></li>
+                <li><a href="#">Verduras</a></li>
+                <li><a href="#">Frutas</a></li>
+                <li><a href="#">Frutos secos</a></li>
+                <li><a href="#">Café y bebidas</a></li>
+                <li><a href="#">Dulces</a></li>
+                <li><a href="#">Carnes</a></li>
+            </ul>
+        </aside>
+
+        <!-- Sección de productos -->
+        <main id="productos" class="hidden">
+            <h2>Explora nuestros productos</h2>
+            <p>Aquí aparecerán los productos según la categoría seleccionada.</p>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
