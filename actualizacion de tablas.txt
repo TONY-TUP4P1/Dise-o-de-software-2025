@@ -1,0 +1,96 @@
+USE MASTER
+GO
+
+IF EXISTS(SELECT* FROM SYS.DATABASES WHERE NAME='AppVentas') 
+DROP DATABASE AppVentas; 
+GO
+-- Crear la base de datos AppVentas
+CREATE DATABASE AppVentas;
+GO
+
+-- Seleccionar la base de datos
+USE AppVentas;
+GO
+
+-- Crear tabla CategoriaProducto
+CREATE TABLE CategoriaProducto (
+    IDCategoriaProducto INT PRIMARY KEY IDENTITY(1,1),
+    Nombre NVARCHAR(100) NOT NULL
+);
+
+-- Crear tabla Producto
+CREATE TABLE Producto (
+    IDProducto INT PRIMARY KEY IDENTITY(1,1),
+    Stock INT NOT NULL,
+    Nombre NVARCHAR(100) NOT NULL,
+    LugarProcedencia NVARCHAR(100) NOT NULL,
+    UnidadMedida NVARCHAR(20) NOT NULL,  -- Kilos o sacos
+    Precio DECIMAL(10, 2) NOT NULL,
+    IDCategoriaProducto INT,
+    FOREIGN KEY (IDCategoriaProducto) REFERENCES CategoriaProducto(IDCategoriaProducto)
+);
+
+-- Crear tabla Cliente
+CREATE TABLE Clientes (
+    IDCliente INT PRIMARY KEY IDENTITY(1,1),
+    Direccion NVARCHAR(200),
+    Telefono NVARCHAR(20),
+    Nombres NVARCHAR(100),
+    CorreoElectronico NVARCHAR(100),
+    Apellido NVARCHAR(100),
+    DNI NVARCHAR(20)
+);
+
+-- Crear tabla Productor
+CREATE TABLE Productor (
+    IDProductor INT PRIMARY KEY IDENTITY(1,1),
+    TipoProducto NVARCHAR(100),  -- Tuberculos, Verduras, Frutas, etc.
+    Certificacion NVARCHAR(50),  -- Puede ser "Activa" o "No activa"
+    Telefono NVARCHAR(20),
+    CorreoElectronico NVARCHAR(100),
+    NombresApellidos NVARCHAR(200),
+);
+
+CREATE TABLE ProductorxProducto (
+    IDProducto INT,
+    IDProductor INT,
+    FOREIGN KEY (IDProducto) REFERENCES Producto(IDProducto),
+    FOREIGN KEY (IDProductor) REFERENCES Productor(IDProductor)
+); --NEW TABLE
+
+-- Crear tabla Venta
+CREATE TABLE Venta (
+    IDVenta INT PRIMARY KEY IDENTITY(1,1),
+    FechaVenta DATETIME NOT NULL,
+    MontoTotal DECIMAL(10, 2) NOT NULL,
+    IDCliente INT,  -- Relacionado con el cliente
+    FOREIGN KEY (IDCliente) REFERENCES Clientes(IDCliente)
+);
+
+-- Crear tabla DetalleVenta
+CREATE TABLE DetalleVenta (
+    IDDetalleVenta INT PRIMARY KEY IDENTITY(1,1),
+    Cantidad INT NOT NULL,
+    PrecioVenta DECIMAL(10, 2) NOT NULL,
+    ProductoID INT,  -- Relacionado con Producto
+    VentaID INT,  -- Relacionado con Venta
+    FOREIGN KEY (ProductoID) REFERENCES Producto(IDProducto),
+    FOREIGN KEY (VentaID) REFERENCES Venta(IDVenta)
+);
+
+-- Crear tabla Reseña
+CREATE TABLE Reseña (
+    IDReseña INT PRIMARY KEY IDENTITY(1,1),
+    Fecha DATETIME NOT NULL,
+    Idioma NVARCHAR(20),  -- Español o Quechua
+    Comentario NVARCHAR(500),
+    Calificacion INT CHECK (Calificacion BETWEEN 1 AND 10),
+    EstadoProducto NVARCHAR(50),  -- Ej. "Bueno", "Regular", "Malo"
+);
+
+CREATE TABLE ClientesxReseña (
+    IDCliente INT,
+    IDReseña INT,
+    FOREIGN KEY (IDCliente) REFERENCES Clientes(IDCliente),
+    FOREIGN KEY (IDReseña) REFERENCES Reseña(IDReseña)
+); --NEW TABLE
