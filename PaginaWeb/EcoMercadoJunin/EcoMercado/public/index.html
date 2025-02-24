@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoMercadoJunin</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Cabecera */
+        .header {
+            background-color: #A5D6A7;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 15px;
+        }
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Sección de barra de progreso */
+        .progress-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .progress-step {
+            width: 150px;
+            text-align: center;
+            position: relative;
+        }
+        .progress-step::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background-color: #ccc;
+            top: 20px;
+            left: 50%;
+            z-index: -1;
+        }
+        .progress-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: white;
+            margin: auto;
+        }
+        .progress-label {
+            margin-top: 5px;
+        }
+
+        /* Estados activos */
+        .active .progress-circle {
+            background-color: #2E7D32;
+        }
+        .active::before {
+            background-color: #2E7D32;
+        }
+
+        /* Conectar los pasos con líneas */
+        .progress-step:not(:last-child)::before {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabecera -->
+    <header class="header">
+        <img src="logo.png" alt="Logo" class="logo">
+        <div class="title">EcoMercadoJunin</div>
+    </header>
+
+  <!-- Barra de Progreso -->
+    <section class="progress-container">
+        <div class="progress-step active">
+            <div class="progress-circle">1</div>
+            <div class="progress-label">Selecciona Producto</div>
+        </div>
+        <div class="progress-step">
+            <div class="progress-circle">2</div>
+            <div class="progress-label">Añade a Carrito</div>
+        </div>
+        <div class="progress-step">
+            <div class="progress-circle">3</div>
+            <div class="progress-label">Confirma tu Compra</div>
+        </div>
+    </section>
+  
+
+    <!-- Sección de Navegación -->
+    <section class="nav-container">
+        <div class="nav-item">
+            <span>Registrarse</span>
+            <ul>
+                <li><a href="#">Productor</a></li>
+                <li><a href="#">Comprador</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-item active">
+            <span>Productos</span>
+        </div>
+
+        <div class="nav-item">
+            <span>Dashboard</span>
+            <ul>
+                <li><a href="#">A</a></li>
+                <li><a href="#">B</a></li>
+                <li><a href="#">C</a></li>
+                <li><a href="#">D</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-item">
+            <span>Carrito</span>
+        </div>
+    </section>
+
+    <style>
+        /* Sección de Navegación */
+        .nav-container {
+            display: flex;
+            justify-content: space-around;
+            background-color: #E8F5E9;
+            padding: 15px 0;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .nav-item {
+            text-align: center;
+            position: relative;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .nav-item span {
+            display: block;
+            color: #2E7D32;
+        }
+        .nav-item ul {
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0;
+            display: none;
+            background-color: white;
+            border-radius: 5px;
+            position: absolute;
+            width: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .nav-item:hover ul {
+            display: block;
+        }
+        .nav-item ul li {
+            padding: 8px;
+        }
+        .nav-item ul li a {
+            text-decoration: none;
+            color: #388E3C;
+        }
+        .active {
+            background-color: #C8E6C9;
+            border-radius: 5px;
+            padding: 10px 15px;
+        }
+    </style>
+    
+    <!-- Sección de Categorías -->
+    <section class="categories-container">
+        <div class="categories-list">
+            <ul>
+                <li><span>🥩</span> Carnes</li>
+                <li><span>☕</span> Café y Bebidas</li>
+                <li><span>🍬</span> Dulces</li>
+                <li><span>🍎</span> Frutas</li>
+                <li><span>🌰</span> Frutos Secos</li>
+                <li><span>🌾</span> Granos</li>
+                <li class="active"><span>🥔</span> Tubérculos</li>
+                <li><span>🥦</span> Verdura</li>
+            </ul>
+        </div>
+        
+        <!-- Sección de Categorías y Productos -->
+
+    <!-- Sección de Productos -->
+    <div class="products-section">
+        <h2>Tubérculos Disponibles</h2>
+        <div class="products-grid">
+            <!-- Se generarán las tarjetas de productos aquí -->
+            <div class="product-card">
+            <div class="product-image">
+                <img src="img/papablanca.png" alt="Papa Blanca">
+            </div>
+            <div class="product-name">Papa Blanca</div>
+            <div class="product-price">Precio: S/ 0.84 x kg</div>
+            </div>
+            
+           <a href="papaamarilla.html" class="product-card">
+            <div class="product-image">
+                <img src="img/papaamarilla.png" alt="Papa Amarilla">
+            </div>
+            <div class="product-name">Papa Amarilla</div>
+            <div class="product-price">Precio: S/ 8.00 x kg</div>
+        </a>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/papahuayro.png" alt="Papa Huayro">
+                </div>
+                <div class="product-name">Papa Huayro</div>
+                <div class="product-price">Precio: S/ 4.50 x kg</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/papaperuanita.png" alt="Papa Peruanita">
+                </div>
+                <div class="product-name">Papa Peruanita</div>
+                <div class="product-price">Precio: S/ 4.00 x kg</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/papanegra.png" alt="Papa Negra">
+                </div>
+                <div class="product-name">Papa Negra</div>
+                <div class="product-price">Precio: S/ 3.00 x kg</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/oca.png" alt="Oca">
+                </div>
+                <div class="product-name">Oca</div>
+                <div class="product-price">Precio: S/ 5.50 x kg</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/mashua.png" alt="Mashua">
+                </div>
+                <div class="product-name">Mashua</div>
+                <div class="product-price">Precio: S/ 6.30 x kg</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/olluco.png" alt="Olluco">
+                </div>
+                <div class="product-name">Olluco</div>
+                <div class="product-price">Precio: S/ 5.00 x kg</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/yacon.png" alt="Yacón">
+                </div>
+                <div class="product-name">Yacón</div>
+                <div class="product-price">Precio: S/ 6.00 x kg</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/camoteamarillo.png" alt="Camote Amarillo">
+                </div>
+                <div class="product-name">Camote Amarillo</div>
+                <div class="product-price">Precio: S/ 2.20 x kg</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/camotemorado.png" alt="Camote Morado">
+                </div>
+                <div class="product-name">Camote Morado</div>
+                <div class="product-price">Precio: S/ 2.90 x kg</div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/yuca.png" alt="Yuca">
+                </div>
+                <div class="product-name">Yuca</div>
+                <div class="product-price">Precio: S/ 3.00 x kg</div>
+            </div>
+    </div>
+</section>
+
+<!-- Estilos para la Sección de Productos -->
+<style>
+    /* Contenedor general */
+    .categories-container {
+        display: flex;
+        margin: 20px;
+    }
+
+    /* Lista de Categorías */
+    .categories-list {
+        width: 200px;
+        background-color: #E8F5E9;
+        padding: 15px;
+        border-radius: 8px;
+    }
+    .categories-list ul {
+        list-style: none;
+        padding: 0;
+    }
+    .categories-list li {
+        padding: 10px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .categories-list li span {
+        margin-right: 10px;
+    }
+    .categories-list li:hover {
+        background-color: #C8E6C9;
+    }
+    .categories-list .active {
+        background-color: #2E7D32;
+        color: white;
+    }
+
+    /* Sección de Productos */
+    .products-section {
+        flex-grow: 1;
+        padding: 20px;
+    }
+    .products-section h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    /* Diseño de la cuadrícula de productos */
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+        gap: 15px;
+    }
+    
+    /* Estilos de las tarjetas de productos */
+    .product-card {
+        background-color: #FFF3E0;
+        border-radius: 8px;
+        padding: 10px;
+        text-align: center;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estilos de la imagen */
+    .product-image {
+        width: 100px;
+        height: 100px;
+        background-color: #E0E0E0;
+        border-radius: 8px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Estilos del nombre y precio */
+    .product-name {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .product-price {
+        margin-top: 5px;
+        color: #D84315;
+        font-weight: bold;
+    }
+</style>
+
+        
+    </section>
+
+    <style>
+        /* Estilos de la Sección de Categorías */
+        .categories-container {
+            display: flex;
+            margin: 20px;
+        }
+        .categories-list {
+            width: 200px;
+            background-color: #E8F5E9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .categories-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .categories-list li {
+            padding: 10px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .categories-list li span {
+            margin-right: 10px;
+        }
+        .categories-list li:hover {
+            background-color: #C8E6C9;
+        }
+        .categories-list .active {
+            background-color: #2E7D32;
+            color: white;
+        }
+        .content-section {
+            flex-grow: 1;
+            padding: 20px;
+        }
+    </style>
+
+</body>
+</html>
+

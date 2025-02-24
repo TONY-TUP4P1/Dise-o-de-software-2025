@@ -1,0 +1,192 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Cabecera */
+.cabecera {
+    background-color: #A5D6A7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: relative;
+}
+
+/* Logo a la izquierda */
+.logo {
+    position: absolute;
+    left: 20px;
+    height: 50px;  /* Ajusta según el tamaño del logo */
+}
+
+/* Título en el centro */
+.titulo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Estilos para la sección de productos */
+.products-section {
+    padding: 20px;
+    text-align: center;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+    gap: 15px;
+    justify-content: center;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.product-image img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.product-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-image img {
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.product-description {
+    max-width: 600px;
+    padding: 15px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor principal para organizar categorías y contenido */
+.categories-container {
+    display: flex;
+    margin: 20px;
+}
+
+/* Estilos para la lista de categorías */
+.categories-list {
+    width: 200px;
+    background-color: #E8F5E9;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.categories-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.categories-list li {
+    padding: 10px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.categories-list li span {
+    margin-right: 10px;
+}
+
+.categories-list li:hover {
+    background-color: #C8E6C9;
+}
+
+.categories-list .active {
+    background-color: #2E7D32;
+    color: white;
+}
+
+/* Sección de contenido a la derecha de las categorías */
+.content-section {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* Contenedor de la imagen y la descripción del producto */
+.product-container {
+    display: flex;
+    align-items: center;
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para la imagen del producto */
+.product-image img {
+    max-width: 300px;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+/* Estilos para la descripción del producto */
+.product-description {
+    max-width: 500px;
+    font-size: 16px;
+    color: #333;
+}
+
+.product-description p {
+    margin-bottom: 10px;
+}
+
+.product-container {
+    display: flex;
+    align-items: flex-start; /* Alinea la imagen y el texto arriba */
+    background-color: #FFF3E0; /* Fondo durazno claro */
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #E65100; /* Borde naranja */
+    max-width: 80%;
+    margin: 20px auto; /* Centra el bloque */
+    gap: 20px;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten si el espacio es pequeño */
+}
+
+/* Establece un ancho fijo para la imagen y evita que se expanda demasiado */
+.product-image {
+    flex: 0 0 300px; /* Fija la imagen en 300px */
+    display: flex;
+    justify-content: center;
+}
+
+.product-image img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* El texto ocupa el espacio restante sin desbordar */
+.product-text {
+    flex: 1; /* Toma el espacio restante */
+    font-size: 16px;
+    color: #4E342E; /* Marrón oscuro */
+    background-color: #f9f9f9; /* Fondo claro para el texto */
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    overflow: hidden; /* Evita que el texto sobrepase el área */
+    word-wrap: break-word; /* Ajusta las palabras si son muy largas */
+}
