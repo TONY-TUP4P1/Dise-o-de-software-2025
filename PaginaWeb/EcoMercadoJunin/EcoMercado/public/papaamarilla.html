@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papa Amarilla</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Cabecera */
+        .header {
+            background-color: #A5D6A7;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 15px;
+        }
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Sección de barra de progreso */
+        .progress-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .progress-step {
+            width: 150px;
+            text-align: center;
+            position: relative;
+        }
+        .progress-step::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background-color: #ccc;
+            top: 20px;
+            left: 50%;
+            z-index: -1;
+        }
+        .progress-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: white;
+            margin: auto;
+        }
+        .progress-label {
+            margin-top: 5px;
+        }
+
+        /* Estados activos */
+        .active .progress-circle {
+            background-color: #2E7D32;
+        }
+        .active::before {
+            background-color: #2E7D32;
+        }
+
+        /* Conectar los pasos con líneas */
+        .progress-step:not(:last-child)::before {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabecera -->
+    <header class="header">
+        <img src="logo.png" alt="Logo" class="logo">
+        <div class="title">EcoMercadoJunin</div>
+    </header>
+
+  <!-- Barra de Progreso -->
+    <section class="progress-container">
+        <div class="progress-step active">
+            <div class="progress-circle">1</div>
+            <div class="progress-label">Selecciona Producto</div>
+        </div>
+        <div class="progress-step">
+            <div class="progress-circle">2</div>
+            <div class="progress-label">Añade a Carrito</div>
+        </div>
+        <div class="progress-step">
+            <div class="progress-circle">3</div>
+            <div class="progress-label">Confirma tu Compra</div>
+        </div>
+    </section>
+  
+
+    <!-- Sección de Navegación -->
+    <section class="nav-container">
+        <div class="nav-item">
+            <span>Registrarse</span>
+            <ul>
+                <li><a href="#">Productor</a></li>
+                <li><a href="#">Comprador</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-item active">
+            <span>Productos</span>
+        </div>
+
+        <div class="nav-item">
+            <span>Dashboard</span>
+            <ul>
+                <li><a href="#">A</a></li>
+                <li><a href="#">B</a></li>
+                <li><a href="#">C</a></li>
+                <li><a href="#">D</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-item">
+            <span>Carrito</span>
+        </div>
+    </section>
+
+    <style>
+        /* Sección de Navegación */
+        .nav-container {
+            display: flex;
+            justify-content: space-around;
+            background-color: #E8F5E9;
+            padding: 15px 0;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .nav-item {
+            text-align: center;
+            position: relative;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .nav-item span {
+            display: block;
+            color: #2E7D32;
+        }
+        .nav-item ul {
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0;
+            display: none;
+            background-color: white;
+            border-radius: 5px;
+            position: absolute;
+            width: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .nav-item:hover ul {
+            display: block;
+        }
+        .nav-item ul li {
+            padding: 8px;
+        }
+        .nav-item ul li a {
+            text-decoration: none;
+            color: #388E3C;
+        }
+        .active {
+            background-color: #C8E6C9;
+            border-radius: 5px;
+            padding: 10px 15px;
+        }
+    </style>
+    
+    <!-- Sección de Categorías -->
+    <section class="categories-container">
+        <div class="categories-list">
+            <ul>
+                <li><span>🥩</span> Carnes</li>
+                <li><span>☕</span> Café y Bebidas</li>
+                <li><span>🍬</span> Dulces</li>
+                <li><span>🍎</span> Frutas</li>
+                <li><span>🌰</span> Frutos Secos</li>
+                <li><span>🌾</span> Granos</li>
+                <li class="active"><span>🥔</span> Tubérculos</li>
+                <li><span>🥦</span> Verdura</li>
+            </ul>
+        </div>
+        
+        <!-- Sección de Categorías y Productos -->
+
+    <!-- Sección de Productos -->
+    <!-- Sección de la Papa Amarilla -->
+        <div class="product-container">
+            <div class="product-image">
+                <img src="img/papaamarilla2.png" alt="Papa Amarilla">
+                
+                <!-- Sección de valoración con estrellas -->
+                <div class="rating">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+
+                <!-- Logo del productor -->
+                <div class="producer">
+                    <img src="img/campesino.png" alt="Productor">
+                    <p>Productor</p>
+                </div>
+                
+                <!-- Botón "Añadir a cesta" -->
+                <button class="add-to-cart" onclick="redirectToCart()">Añadir a cesta</button>
+
+                <!-- Flecha para volver a index.html -->
+                <div class="back-arrow">
+                    <a href="index.html">← Volver</a>
+                </div>
+        </div>
+    <div class="product-text">
+        <h3>Papa Amarilla</h3>
+        <p><strong>- Clima y Suelo:</strong> La región de Junín ofrece condiciones ideales para el cultivo de la papa amarilla, con suelos fértiles y un clima adecuado que favorecen el crecimiento de este tubérculo.</p>
+        <p><strong>- Cosecha:</strong> La cosecha de papa en Junín se realiza en zonas con agua permanente, lo que permite obtener productos de alta calidad. Los precios en chacra son relativamente aceptables, con la papa amarilla vendiéndose a aproximadamente S/7 por kilogramo.</p>
+        <p><strong>- Sabor y Textura:</strong> La papa amarilla es conocida por su sabor suave y su textura cremosa, lo que la hace ideal para una variedad de platos, desde purés hasta guisos.</p>
+        <p><strong>- Valor Nutricional:</strong> Es rica en carbohidratos, vitamina C y potasio, lo que la convierte en una fuente importante de energía y nutrientes esenciales.</p>
+    </div>
+</div>
+
+    <style>
+        .product-container {
+    display: flex;
+    align-items: flex-start; /* Alinea la imagen y el texto arriba */
+    background-color: #FFF3E0; /* Fondo durazno claro */
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #E65100; /* Borde naranja */
+    max-width: 80%;
+    margin: 20px auto; /* Centra el bloque */
+    gap: 20px;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten si el espacio es pequeño */
+}
+
+/* Establece un ancho fijo para la imagen y evita que se expanda demasiado */
+.product-image {
+    flex: 0 0 300px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.product-image img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Estilos para la valoración con estrellas */
+.rating {
+    font-size: 24px;
+    color: gray; /* Color inicial gris */
+    cursor: pointer;
+}
+
+.rating .star {
+    transition: color 0.3s ease-in-out;
+}
+
+/* Estrellas doradas cuando están activas */
+.rating .star.active,
+.rating .star:hover {
+    color: gold;
+}
+
+/* Contenedor del productor */
+.producer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.producer img {
+    width: 50px;
+    height: auto;
+}
+
+.producer p {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 5px 0 0;
+    color: #4E342E;
+}
+
+/* Botón "Añadir a cesta" */
+.add-to-cart {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #E65100;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.add-to-cart:hover {
+    background-color: #BF360C;
+}
+
+/* Flecha de regreso */
+.back-arrow {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.back-arrow a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #E65100;
+}
+
+.back-arrow a:hover {
+    color: #BF360C;
+}
+
+/* El texto ocupa el espacio restante sin desbordar */
+.product-text {
+    flex: 1; /* Toma el espacio restante */
+    font-size: 16px;
+    color: #4E342E; /* Marrón oscuro */
+    background-color: #f9f9f9; /* Fondo claro para el texto */
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    overflow: hidden; /* Evita que el texto sobrepase el área */
+    word-wrap: break-word; /* Ajusta las palabras si son muy largas */
+}
+    </style>
+    
+    <style>
+        /* Estilos de la Sección de Categorías */
+        .categories-container {
+            display: flex;
+            margin: 20px;
+        }
+        .categories-list {
+            width: 200px;
+            background-color: #E8F5E9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .categories-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .categories-list li {
+            padding: 10px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .categories-list li span {
+            margin-right: 10px;
+        }
+        .categories-list li:hover {
+            background-color: #C8E6C9;
+        }
+        .categories-list .active {
+            background-color: #2E7D32;
+            color: white;
+        }
+        .content-section {
+            flex-grow: 1;
+            padding: 20px;
+        }
+    </style>
+
+    <script src="script.js"></script>
+    
+</body>
+</html>
+
